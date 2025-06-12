@@ -8,8 +8,10 @@ defmodule HelloWeb.Ecolive do
 
     @impl true 
     def handle_event("actualizar", %{"mensaje" => mensaje}, socket) do
+        Hello.Hellos.create_hello(%{mensaje: mensaje})
         {:noreply, assign(socket, texto: mensaje)}
     end
+
 
     @impl true 
     def render(assigns) do
@@ -17,13 +19,9 @@ defmodule HelloWeb.Ecolive do
         <div class="p-6 max-w-xl mx-auto">
             <h1 class="text-2xl font-bold mb-4">Eco Page</h1>
 
-            <form phx-change="actualizar">
-                <input
-                type="text"
-                name="mensaje"
-                placeholder="Escribe algo…"
-                class="border p-2 w-full rounded"
-                />
+            <form phx-submit="actualizar">
+                <input type="text" name="mensaje" />
+                <button type="submit">Enviar</button>
             </form>
 
             <p class="mt-4 text-lg text-gray-700">
